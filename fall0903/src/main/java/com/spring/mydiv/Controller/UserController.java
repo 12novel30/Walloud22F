@@ -2,6 +2,7 @@ package com.spring.mydiv.Controller;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,13 +12,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.mydiv.Dto.UserDto;
+import com.spring.mydiv.Service.UserService;
 
+import lombok.RequiredArgsConstructor;
+
+/**
+ * @author 12nov
+ */
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
+@RequiredArgsConstructor
 //@RequestMapping("/")
 public class UserController {
-	
-	
+	private final UserService userservice;
+
+    @PostMapping("/create-developer")
+    public ResponseEntity<UserDto> createDeveloper(@RequestBody UserDto userDto) {
+    	//@RequestBody = 회원가입 정보
+    	//service. user DB에 사용자 등록
+    	return ResponseEntity.ok(userservice.createUser(userDto));
+    }
 	
 	
 	/*
