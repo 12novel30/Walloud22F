@@ -2,18 +2,31 @@ package com.spring.mydiv.Entity;
 
 import javax.persistence.*;
 
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Entity
-@Table(name = "USER")
+/**
+ * @author 12nov
+ */
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Entity
+@EntityListeners(AuditingEntityListener.class)
+@Table(name = "USER")
+
 public class User {
 	
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_id", length = 20)
 	private Long Id;
 	
@@ -28,12 +41,5 @@ public class User {
 	
 	@Column(name = "user_account", length = 20, nullable = false)
 	private String Account;
-	
-	@Builder
-	public User(String Name, String Email, String Password, String Account) {
-		this.Name = Name;
-		this.Email = Email;
-		this.Password = Password;
-		this.Account = Account;
-	}
+
 }
