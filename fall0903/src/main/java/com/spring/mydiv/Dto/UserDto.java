@@ -27,7 +27,7 @@ public class UserDto {
 
     public static UserDto fromEntity(User user) {
         return UserDto.builder()
-        		.Id(user.getId())
+        		//.Id(user.getId())
                 .Name(user.getName())
                 .Email(user.getEmail())
                 .Password(user.getPassword())
