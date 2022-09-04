@@ -1,38 +1,49 @@
 package com.spring.mydiv.Service;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.DisplayName;
+import org.mockito.ArgumentCaptor;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Commit;
-
+import com.spring.mydiv.Dto.UserCreateDto;
 import com.spring.mydiv.Entity.User;
+import com.spring.mydiv.Repository.UserRepository;
 
-@ExtendWith(MockitoExtension.class)
+
+/**
+ * @author 12nov
+ */
+@ExtendWith(MockitoExtension.class) //mokito -> DB x
 class UserServiceTest {
+	@Mock
+	private UserRepository userRepository;
 	
+	@InjectMocks
+	private UserService userService;
 	
 	@Test
-    @Commit
-    @DisplayName("회원가입")
 	void testCreateUser() {
-		User testUser = UserDto("haeunUCB", "haeunlee1230@gm.gist.ac.kr", "20205149", "000-000-00");
-		Long id = memberservice.joinUser(USER);
-        System.out.print("id = " + id);
-		fail("Not yet implemented"); // TODO
-	}
+        //given
+		UserCreateDto.Request request = UserCreateDto.Request.builder()
+				.Name("haeunUCB")
+				.Email("haeunlee1230@gm.gist.ac.kr")
+				.Password("20205149")
+				.Account("000-000-00")
+				.build();
+		ArgumentCaptor<User> captor =
+                ArgumentCaptor.forClass(User.class);
+        //when
+		UserCreateDto.Response response = userService.createUser(request);
 
-	private User UserDto(String string, String string2, String string3, String string4) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Test
-	void testUserService() {
-		fail("Not yet implemented"); // TODO
+        //then
+		verify(userRepository, times(1)).save(captor.capture());
+        System.out.print("name = " + response.getName());
+		
+        //fail("Not yet implemented"); // TODO
 	}
 
 }

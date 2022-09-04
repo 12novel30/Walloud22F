@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.spring.mydiv.Dto.UserCreateDto;
 import com.spring.mydiv.Dto.UserDto;
 import com.spring.mydiv.Service.UserService;
 
@@ -27,10 +28,10 @@ public class UserController {
 	private final UserService userservice;
 
     @PostMapping("/create-developer")
-    public ResponseEntity<UserDto> createDeveloper(@RequestBody UserDto userDto) {
+    public ResponseEntity<UserCreateDto.Response> createDeveloper(@RequestBody UserCreateDto.Request request) {
     	//@RequestBody = 회원가입 정보
     	//service. user DB에 사용자 등록
-    	return ResponseEntity.ok(userservice.createUser(userDto));
+    	return ResponseEntity.ok(userservice.createUser(request));
     }
 	
 	

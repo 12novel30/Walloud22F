@@ -22,24 +22,23 @@ import lombok.Setter;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "USER")
-
 public class User {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_id", length = 20)
-	private Long Id;
+	private Long id;
 	
 	@Column(name = "user_name", length = 50, nullable = false)
-	private String Name;
+	private String name;
 	
 	@Column(name = "user_email", length = 100, nullable = false, unique = true)
-	private String Email;
+	private String email;
 	
 	@Column(name = "user_password", length = 200, nullable = false)
-	private String Password;
+	private String password;
 	
 	@Column(name = "user_account", length = 20, nullable = false)
-	private String Account;
+	private String account;
 
 }

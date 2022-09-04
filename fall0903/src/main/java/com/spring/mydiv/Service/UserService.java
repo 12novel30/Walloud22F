@@ -4,6 +4,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
+import com.spring.mydiv.Dto.UserCreateDto;
 import com.spring.mydiv.Dto.UserDto;
 import com.spring.mydiv.Entity.User;
 import com.spring.mydiv.Repository.UserRepository;
@@ -19,15 +20,15 @@ public class UserService {
 	private final UserRepository userRepository;
 	
     @Transactional
-    public UserDto createUser(UserDto userdto) {
+    public UserCreateDto.Response createUser(UserCreateDto.Request request) {
         User user = User.builder()
-        		.Id(userdto.getId())
-                .Name(userdto.getName())
-                .Email(userdto.getEmail())
-                .Password(userdto.getPassword())
-                .Account(userdto.getAccount())
+        		//.Id(userdto.getId())
+                .name(request.getName())
+                .email(request.getEmail())
+                .password(request.getPassword())
+                .account(request.getAccount())
                 .build();
         userRepository.save(user);
-        return UserDto.fromEntity(user);
+        return UserCreateDto.Response.fromEntity(user);
     }
 }
