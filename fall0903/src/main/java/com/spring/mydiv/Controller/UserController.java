@@ -28,21 +28,36 @@ public class UserController {
 	private final UserService userservice;
 
     @PostMapping("/create-developer")
-    public ResponseEntity<UserCreateDto.Response> createDeveloper(@RequestBody UserCreateDto.Request request) {
+    //회원가입
+    public ResponseEntity<UserCreateDto.Response> createUser(@RequestBody UserCreateDto.Request request) {
     	//@RequestBody = 회원가입 정보
     	//service. user DB에 사용자 등록
-    	return ResponseEntity.ok(userservice.createUser(request));
+    	return ResponseEntity.ok(userservice.createUser(request)); //상태코드 & body
     }
-	
-	
-	/*
-	@PostMapping("/enroll")
-	public void createUser(@RequestBody User newuser){
-		//@RequestBody = 회원가입 정보
-		//service. user DB에 사용자 등록
-		//JPA save 함수는 리턴값이 없는듯
-	}
-	
+    
+    /**로그인
+     * input: id & pw
+     * in user db,
+     * 	id 없으면 id 없다는 문구 출력
+     *  pw 틀리면 pw 틀렸다는 문구 출력
+     *  맞으면 status 코드 리턴 & userDB의 개인정보 리턴
+     * 		person DB에 user email 있으면 -> travel 리스트 리턴
+     * 		없으면 -> "여행을 만들어보세요!" 출력*/
+    @PostMapping("/login")
+    public ResponseEntity<UserCreateDto.Response> login(@RequestBody UserCreateDto.Request request) {
+    	//@RequestBody = 회원가입 정보
+    	//service. user DB에 사용자 등록
+    	return ResponseEntity.ok(userservice.createUser(request)); //상태코드 & body
+    }
+    
+    /**travel join
+     * input: travel 정보 & 현재 유저 email
+     * to travel db -> travel 생성
+     * to person db -> 현재 유저 & travel 데이터 생성
+     * return travel 메인 페이지*/
+    
+    
+    /*
 	@PostMapping("/login")
 	public void login(@RequestBody User newuser){
 		//로그인 정보 받아 → 로그인 됐는지 확인 → 로그인 여부 리턴
