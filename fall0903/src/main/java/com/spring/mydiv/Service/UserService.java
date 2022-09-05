@@ -7,9 +7,14 @@ import org.springframework.stereotype.Service;
 import com.spring.mydiv.Dto.UserCreateDto;
 import com.spring.mydiv.Dto.UserDto;
 import com.spring.mydiv.Entity.User;
+import com.spring.mydiv.Repository.PersonRepository;
+import com.spring.mydiv.Repository.TravelRepository;
 import com.spring.mydiv.Repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
+import java.util.Optional;
 
 /**
  * @author 12nov
@@ -18,6 +23,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserService {
 	private final UserRepository userRepository;
+	private final PersonRepository personRepository;
+	private final TravelRepository travelRepository;
 	
     @Transactional
     public UserCreateDto.Response createUser(UserCreateDto.Request request) {
@@ -31,4 +38,25 @@ public class UserService {
         userRepository.save(user);
         return UserCreateDto.Response.fromEntity(user);
     }
+    
+    UserCreateDto.Response answer = null;
+    public UserCreateDto.Response login(UserCreateDto.Login loginUser) {
+    	Optional<User> info = userRepository.findByEmail(loginUser.getEmail());
+    	info.ifPresent(user ->
+    					{if (loginUser.getPassword() == user.getPassword()) {
+    						answer = UserCreateDto.Response.fromEntity(user);}
+    					}
+    					);
+    	return answer;
+    }
+    
+    List<String> travelList = null;
+    public List<String> getUserJoinedTravel(int no){
+    	List<Integer> travelIdList = personRepository.findTravelIdByUserId(no);
+    	for(int id : travelIdList) {
+    		travelList.add(travelRepository.findNameIdById(id));
+    	}
+    	return travelList;
+    }
+
 }

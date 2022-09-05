@@ -51,4 +51,16 @@ public class UserCreateDto {
                     .build();
         }
     }
+    
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
+    public static class Login {
+        @NotNull
+        private String Email;
+        @NotNull
+        private String Password;
+    }
 }

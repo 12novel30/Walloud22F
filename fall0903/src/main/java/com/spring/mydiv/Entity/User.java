@@ -21,7 +21,7 @@ import lombok.Setter;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "USER")
+@Table(name = "user")
 public class User {
 	
 	@Id

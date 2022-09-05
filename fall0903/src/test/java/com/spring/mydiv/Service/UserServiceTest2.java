@@ -1,7 +1,5 @@
 package com.spring.mydiv.Service;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +18,8 @@ class UserServiceTest2 {
 	void testCreateUser() {
 		//given
 		UserCreateDto.Request request = UserCreateDto.Request.builder()
-				.Name("haeunGmail")
-				.Email("bittersweet141230@gmail.com")
+				.Name("haeunGmail2")
+				.Email("bittersweet@gmail.com")
 				.Password("20205149")
 				.Account("000-000-00")
 				.build();

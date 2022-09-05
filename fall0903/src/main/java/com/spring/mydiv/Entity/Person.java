@@ -2,40 +2,50 @@ package com.spring.mydiv.Entity;
 
 import javax.persistence.*;
 
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Entity
-@Table(name = "PERSON")
+/**
+ * @author 12nov
+ */
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Entity
+@EntityListeners(AuditingEntityListener.class)
+@Table(name = "person")
 public class Person {
-	
-	// fk에 대하여 두 테이블에 모두 어노테이션 필요하다. (관계 명시)
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "person_id", length = 20)
-	private Long Id;
+	private Long id;
+	
+	@ManyToOne
+    @JoinColumn(name = "user_id")
+	private Long userId;
+
+	@ManyToOne
+    @JoinColumn(name = "travel_id")
+	private Long travelId;
 	
 	@Column(name = "person_sumSend", nullable = false)
-	private Double Sumsend;
+	private Double sumSend;
 	
 	@Column(name = "person_sumGet", nullable = false)
-	private Double Sumget;
+	private Double sumGet;
 	
 	@Column(name = "person_difference", nullable = false)
-	private Double Difference;
+	private Double difference;
 	
 	@Column(name = "person_travelRole", length = 50)
-	private String Role;
+	private String role;
 	
-	@Builder
-	public Person(Double Sumsend, Double Sumget, Double Difference, String Role) {
-		this.Sumsend = Sumsend;
-		this.Sumget = Sumget;
-		this.Difference = Difference;
-		this.Role = Role;
-	}
 }
