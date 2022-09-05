@@ -29,5 +29,39 @@ class UserServiceTest2 {
 		System.out.print("name = " + response.getName());
 		//fail("Not yet implemented"); // TODO
 	}
+	
+//	@Test
+//    @Commit
+//    @DisplayName("로그인")
+//	void testLogin() {
+//		//given
+//		UserCreateDto.Login login = UserCreateDto.Login.builder()
+//				.Email("bittersweet141230@gmail.com")
+//				.Password("20205149")
+//				.build();
+//		//when
+//		UserCreateDto.Response response = userService.login(login);
+//		
+//		//then
+//		System.out.print("password = " + response.getPassword());
+//		//fail("Not yet implemented"); // TODO
+//	}
+	
+	@Test
+    @Commit
+    @DisplayName("로그인")
+	void testGetUserJoinedTravel() {
+		//given
+		UserCreateDto.Login login = UserCreateDto.Login.builder()
+				.Email("bittersweet141230@gmail.com")
+				.Password("20205149")
+				.build();
+		//when
+		UserCreateDto.Response response = userService.login(login);
+		
+		//then
+		System.out.print("password = " + response.getPassword());
+		//fail("Not yet implemented"); // TODO
+	}
 
 }

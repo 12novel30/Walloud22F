@@ -29,12 +29,10 @@ public class Person {
 	private Long id;
 	
 	@ManyToOne
-    @JoinColumn(name = "user_id")
-	private Long userId;
+	private User user;
 
 	@ManyToOne
-    @JoinColumn(name = "travel_id")
-	private Long travelId;
+	private Travel travel;
 	
 	@Column(name = "person_sumSend", nullable = false)
 	private Double sumSend;

@@ -4,8 +4,10 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
+import com.spring.mydiv.Dto.TravelDto;
 import com.spring.mydiv.Dto.UserCreateDto;
 import com.spring.mydiv.Dto.UserDto;
+import com.spring.mydiv.Entity.Travel;
 import com.spring.mydiv.Entity.User;
 import com.spring.mydiv.Repository.PersonRepository;
 import com.spring.mydiv.Repository.TravelRepository;
@@ -43,7 +45,7 @@ public class UserService {
     public UserCreateDto.Response login(UserCreateDto.Login loginUser) {
     	Optional<User> info = userRepository.findByEmail(loginUser.getEmail());
     	info.ifPresent(user ->
-    					{if (loginUser.getPassword() == user.getPassword()) {
+    					{if (loginUser.getPassword().toString().equals(user.getPassword().toString())) {
     						answer = UserCreateDto.Response.fromEntity(user);}
     					}
     					);
@@ -58,5 +60,22 @@ public class UserService {
     	}
     	return travelList;
     }
-
+    
+    @Transactional
+    public UserCreateDto.Response createPerson(UserCreateDto.Request userinfo, TravelDto travelinfo) {
+        User user = User.builder()
+                .name(userinfo.getName())
+                .email(userinfo.getEmail())
+                .password(userinfo.getPassword())
+                .account(userinfo.getAccount())
+                .build();
+        Travel travel = Travel.builder()
+                .name(travelinfo.getName())
+                .build();
+        
+        userRepository.save(user);
+        return UserCreateDto.Response.fromEntity(user);
+    }
+    
+    
 }
