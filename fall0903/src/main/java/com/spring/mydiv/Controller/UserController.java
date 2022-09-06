@@ -1,6 +1,7 @@
 package com.spring.mydiv.Controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -22,7 +23,7 @@ import lombok.RequiredArgsConstructor;
 /**
  * @author 12nov
  */
-@CrossOrigin(origins = "http://localhost:3000")
+//@CrossOrigin(origins = "http://localhost:3000/")
 @RestController
 @RequiredArgsConstructor
 //@RequestMapping("/")
@@ -30,11 +31,35 @@ public class UserController {
 	private final UserService userservice;
 	private final TravelService travelservice;
 
-    @PostMapping("/create-developer")
+	
+	@GetMapping("/api/hello")
+	public String ddd() {
+		return "He";
+	}
+	
+	@PostMapping(value = "/testw")
+	public String createUser(@RequestBody Map map) {
+
+	     System.out.println("");
+	     System.out.println(map.get("user_name"));
+	     System.out.println(map.get("user_email"));
+	     System.out.println(map.get("user_password"));
+	     System.out.println(map.get("user_account"));
+	     
+//	     UserDto userdto = new UserDto(map.get("user_name").toString(),map.get("user_email").toString(),map.get("user_password").toString(),map.get("user_account").toString());
+//	     userservice.CreateUser(userdto);     
+	     //JPA save 함수는 리턴값이 없는듯
+	      return "spring";
+	}
+	
+	
+    @PostMapping("/Register")
     //회원가입
-    public ResponseEntity<UserCreateDto.Response> createUser(@RequestBody UserCreateDto.Request request) {
+    public ResponseEntity<UserCreateDto.Response> createUser(String t) { //@RequestBody UserCreateDto.Request request) {
     	//@RequestBody = 회원가입 정보
     	//service. user DB에 사용자 등록
+    	System.out.print(t);
+    	UserCreateDto.Request request = null;
     	return ResponseEntity.ok(userservice.createUser(request)); //상태코드 & body
     }
     
